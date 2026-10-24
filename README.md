@@ -8,25 +8,45 @@ A local DSH plugin for students. No paid API key required.
 
 TokenFree 为预算有限的学生而做，[DeepSeek Harness（DSH）](https://github.com/deepseek-ai/deepseek-harness) 能在工作目录中调用工具、读写文件并推进任务。如果确实囊中羞涩，TokenFree 把 DSH 接到你自己的 DeepSeek 网页账号上，让这些能力帮助你进行日常学习和研究。
 
-## 当前进展
+## 安装与使用
 
-**项目正在开发中，尚无可安装的公开插件版本。**
+首个公开版本为 **0.2.0**。当前支持范围：**macOS、DSH 0.2.1-rc.3、已安装 Google Chrome**。DeepSeek 网页接入仍为实验性；官网协议变化可能影响可用性。
 
-| 阶段 | 状态 |
-| --- | --- |
-| 登录与对话 | 桌面、CLI、本机 Web 的登录共享、普通对话和文件工具已有实机验证。 |
-| 多会话 | 桌面双会话的同时生成、独立停止、上下文与用量隔离已验证。 |
-| 长对话 | 手动压缩、重启和压缩后续聊已验证；自动压缩与更多并发场景仍在完善。 |
-| 公开发布 | GitHub 展示仓库已建立；npm 当前仅有 `0.0.0-stage` 暂存占位，实际开发包尚未批准公开。 |
+1. 在 DSH 的「插件 → 添加插件」中输入 `dsh-tokenfree@0.2.0` 并安装。
+2. 打开「设置 → TokenFree」，点击「登录」，在专用官方窗口中完成 DeepSeek 登录。
+3. 点击「使用」，或在模型列表中选择 **TokenFree · DeepSeek Web**。点击「使用」也会设为当前 DSH profile 的默认模型。
 
-目前的开发验证基线是 **macOS + DSH 0.2.1-rc.2**。源码与可安装版本将随发布进度提供。
+登录由本机桌面、CLI 和 Web 共用。不同 DSH profile 需要各自安装插件；退出 TokenFree 会同步撤销三端使用。插件不新增监听端口，不读取日常 Chrome 账号。
 
-[查看发布页](https://github.com/yuezengwu/dsh-tokenfree/releases) · [查看 npm 状态](https://www.npmjs.com/package/dsh-tokenfree)
+桌面和本机 Web 使用相同的插件安装入口。使用 DSH CLI 时，可以安装到 headless profile：
 
-## 入门教程
+```sh
+dsh plugin --profile headless add dsh-tokenfree@0.2.0
+```
 
-- [ ] **TODO：使用示例**
-- [ ] **TODO：安装教学**
+先在桌面完成登录；再保存以下内容为 `tokenfree.yml`，用 `dsh headless --patch ./tokenfree.yml "你的任务"` 启动：
+
+```yaml
+- id: agent-default-model
+  config:
+    provider: tokenfree-deepseek-web
+    model: web-default
+```
+
+CLI 自行读取同一份登录，无须另行配置压缩。独立诊断/登录 CLI 的高级用法见[会话设置](POLICIES.md)。
+
+[GitHub Release](https://github.com/yuezengwu/dsh-tokenfree/releases/tag/v0.2.0) · [npm](https://www.npmjs.com/package/dsh-tokenfree) · [变更记录](CHANGELOG.md) · [发布流程](RELEASING.md)
+
+## 能力与限制
+
+- 支持多轮增量上下文、会话并发、流式思考与正文、停止和断流恢复。
+- 工具经过完整校验，再交给 DSH 原生审批与执行；支持[工具选择与 JSON/schema 最终输出](POLICIES.md)。工具采用文本协议桥接，不是官网原生 function calling。
+- 使用官网 C/B 按 50% 门槛自动接入 DSH 原生压缩；读不到 B 时采用默认 890,880，C 不估算。摘要在原网页 chat 生成，checkpoint 保存后新建 chat 续聊。
+- 首发关闭网页搜索和内置 web_search，不支持文件上传、图片或音频输入。
+
+普通对话、文件工具、桌面并发及手动压缩已有实机证据；自然 50% 自动触发、新工具策略与结构化输出的完整真实组合仍待验收。rc.3 已通过本地 Node 22/24 与原生宿主验证，历史真人测试的宿主版本单独记录，详见[验证记录](VALIDATION.md)。官网撤回导致历史请求消失时，原会话可能保持待核实；可从 DSH 独立分叉继续，不自动清除状态或重复派发工具。
+
+## 使用演示
 
 ### 登录配置
 
@@ -50,9 +70,9 @@ TokenFree 采用 MIT 协议，插件本身不收费。它使用你自己的 Deep
 
 这是社区独立维护的非官方插件，与 DeepSeek 官方没有隶属或背书关系。DSH 与 DeepSeek 网页服务分别由其上游项目维护。
 
-### 现在能直接安装 npm 上的包吗？
+### 如何更新或卸载？
 
-`0.0.0-stage` 是 npm 暂存流程生成的占位版本，不包含可用插件。安装说明会随首个可安装版本提供。
+在 DSH 插件管理中更新或卸载；更新前查看变更记录中的 DSH 兼容要求。首次请明确安装 `0.2.0`，旧 `0.0.0-stage` 是不可用占位版本。卸载不自动清理本地日志；如需退出账号，先在 TokenFree 卡片中点击「退出」。
 
 ### Windows 和 Linux 呢？
 
@@ -60,7 +80,7 @@ TokenFree 采用 MIT 协议，插件本身不收费。它使用你自己的 Deep
 
 ## 一起把门槛再降一点
 
-欢迎通过 [Issues](https://github.com/yuezengwu/dsh-tokenfree/issues) 反馈你在学习和研究中的需求，或帮助完善文档、测试与兼容性。使用示例和安装教学目前保留为 TODO。
+欢迎通过 [Issues](https://github.com/yuezengwu/dsh-tokenfree/issues) 反馈你在学习和研究中的需求，或帮助完善文档、测试与兼容性。安装问题请同时提供 DSH 与插件版本。
 
 反馈问题时，请使用不含账号凭据、私人文件或完整对话日志的最小复现。
 

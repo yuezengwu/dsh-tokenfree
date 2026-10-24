@@ -1,0 +1,198 @@
+{
+  "name": "dsh-tokenfree",
+  "version": "0.2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuezengwu/dsh-tokenfree.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yuezengwu/dsh-tokenfree/issues"
+  },
+  "homepage": "https://github.com/yuezengwu/dsh-tokenfree#readme",
+  "packageManager": "pnpm@10.12.1",
+  "description": "Use your own free DeepSeek Web account in DSH, locally and without a listening port.",
+  "type": "module",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "types": "./lib/dsh/client/index.d.ts",
+      "default": "./lib/client.js"
+    },
+    "./account-types": {
+      "types": "./lib/account-types.d.ts",
+      "default": "./lib/account-types.js"
+    },
+    "./typert": {
+      "types": "./lib/typert.host.d.ts",
+      "default": "./lib/typert.host.js"
+    },
+    "./remote": {
+      "types": "./lib/typert.remote-client.d.ts",
+      "default": "./lib/typert.remote-client.js"
+    },
+    "./package.json": "./package.json",
+    "./compaction": {
+      "types": "./lib/compaction.d.ts",
+      "default": "./lib/compaction.js"
+    }
+  },
+  "bin": {
+    "dsh-tokenfree": "./lib/cli.js"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md",
+    "assets/readme/tokenfree-login.png",
+    "assets/readme/tokenfree-model-selection.png",
+    "LICENSE",
+    "NOTICE.md",
+    "SECURITY.md",
+    "CHANGELOG.md",
+    "!lib/**/*.map",
+    "MAIN_CHAIN.md",
+    "VALIDATION.md",
+    "COMPACTION.md",
+    "POLICIES.md",
+    "BROWSER_CONNECTION.md",
+    "THIRD_PARTY_NOTICES.md",
+    "COMPACTION_FEASIBILITY.md",
+    "COMPACTION_INTEGRATION.md",
+    "COMPACTION_LIVE_VALIDATION.md",
+    "CONTEXT_CONSISTENCY_SPEC.md",
+    "CONTRIBUTING.md",
+    "FOLLOWUP_TEST_RESULTS.md",
+    "LIVE_TEST_PLAN.md",
+    "LIVE_TEST_RESULTS.md",
+    "LOGGING_DESIGN.md",
+    "OPEN_SOURCE.md",
+    "PRODUCT_SPEC.md",
+    "RECOVERY_TEST_RESULTS.md",
+    "RELEASE_REVIEW.md",
+    "SESSION_WEB_SEARCH_SPEC.md",
+    "SPEC_STATUS.md",
+    "STREAMING_INTERACTION_SPEC.md",
+    "SYSTEM_BOUNDARIES.md",
+    "TECHNICAL_DESIGN.md",
+    "TECHNICAL_REVIEW.md",
+    "THINKING_SEARCH_SPEC.md",
+    "TOOL_CALLING_SPEC.md",
+    "WEB_API_REFERENCE.md",
+    "src/core/codec.ts",
+    "src/deepseek-web/sse.ts",
+    "src/dsh/adapter.ts",
+    "src/local/diagnostics.ts",
+    "RELEASING.md"
+  ],
+  "engines": {
+    "node": "^22.19.0 || >=24",
+    "dsh": "0.2.1-rc.3"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-api-gateway",
+        "@deepseek-ai/dsh-client-ui-renderer",
+        "@deepseek-ai/dsh-client-ui-settings",
+        "@deepseek-ai/dsh-client-ui-conversation"
+      ],
+      "platform": "web"
+    }
+  },
+  "scripts": {
+    "build": "node scripts/clean.mjs && pnpm build:host && pnpm build:client",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.client.json --noEmit --emitDeclarationOnly false",
+    "test": "pnpm build && pnpm test:unit",
+    "test:unit": "node --test --test-skip-pattern='^real Chrome ' tests/*.test.mjs",
+    "check": "pnpm check:repo && pnpm build && pnpm typecheck && pnpm test:unit && pnpm check:package",
+    "check:repo": "node scripts/check-repo.mjs",
+    "check:package": "node scripts/check-package.mjs",
+    "auth": "node lib/cli.js auth",
+    "doctor": "node lib/cli.js doctor",
+    "smoke": "node lib/cli.js smoke",
+    "demo": "pnpm build && node scripts/live-dsh.mjs",
+    "build:host": "tsc -p tsconfig.json && node scripts/generate-typert.mjs",
+    "build:client": "node scripts/build-client.mjs",
+    "login": "node lib/cli.js login",
+    "test:browser": "pnpm build && node --test --test-name-pattern='^real Chrome ' tests/browser-login.test.mjs",
+    "release:prepare": "node scripts/prepare-release.mjs"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "4.0.5",
+    "@deepseek-ai/dsh-agent": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-agent-default-model": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-agent-preset-registry": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-api-gateway": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-api-session-controller": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-client-ui-conversation": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-client-ui-renderer": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-client-ui-session": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-client-ui-settings": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-client-ui-slots": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-compaction": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-compaction-basic": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-home-paths": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-llm": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-session": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-session-query": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-token-meter": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-tools": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-typert-protocol": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-util-values": "0.2.1-rc.3",
+    "react": "^18.3.1"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "4.0.5",
+    "@deepseek-ai/cordis-plugin-loader": "1.0.6",
+    "@deepseek-ai/dsh-agent": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-agent-default-model": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-agent-loop": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-agent-preset-registry": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-api-gateway": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-api-session-controller": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-client-ui-conversation": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-client-ui-renderer": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-client-ui-session": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-client-ui-settings": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-client-ui-slots": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-compaction": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-compaction-basic": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-home-paths": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-llm": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-session": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-session-projection": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-session-query": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-system-prompt": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-token-meter": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-tools": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-typert-generator": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-typert-protocol": "0.2.1-rc.3",
+    "@deepseek-ai/dsh-util-values": "0.2.1-rc.3",
+    "@testing-library/react": "16.3.2",
+    "@types/node": "^24.0.0",
+    "@types/react": "18.3.31",
+    "esbuild": "0.28.2",
+    "jsdom": "29.1.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "typescript": "6.0.3"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "playwright-core": "1.61.1",
+    "zod": "4.4.3"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public",
+    "tag": "latest"
+  }
+}

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<title>TokenFree · 单卡片演示</title>
+<style>
+:root{color-scheme:light dark;--page:light-dark(#f6f6f7,#202123);--card:light-dark(#fff,#2b2c2f);--text:light-dark(#292c33,#edeef1);--muted:light-dark(#656a75,#afb3bd);--line:light-dark(#e1e3e8,#43454d);--blue:light-dark(#3d58d1,#a0b1ff);--button:#5269e9;--good:light-dark(#247441,#98d0ac);--warn:light-dark(#8a5c0b,#dfbf83)}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--text);font:13px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif}
+.plugin-page{width:100%;max-width:720px;padding:24px}.tokenfree-card{width:100%;min-width:0;padding:16px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+.card-header{display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:0;height:28px;margin-bottom:12px}h1{min-width:0;margin:0;font-size:15px;line-height:22px;font-weight:600}h1 a{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text);text-decoration:none}h1 a:hover{color:var(--blue)}
+.card-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-shrink:0}.demo{min-width:0;max-width:112px;border:0;background:transparent;color:var(--muted);font-family:inherit;font-size:11px;line-height:1.5;padding:0;cursor:pointer}
+button{flex-shrink:0;min-width:42px;height:26px;padding:0 9px;border:1px solid var(--line);border-radius:5px;background:transparent;color:var(--text);font-family:inherit;font-size:12px;line-height:1;cursor:pointer}button.primary{background:var(--button);border-color:var(--button);color:#fff}button:disabled{opacity:.6;cursor:default}button[hidden]{display:none}button:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.status-line{display:flex;align-items:center;gap:16px;min-width:0;height:22px;white-space:nowrap}.status-item{display:flex;align-items:center;gap:6px;min-width:0}.status-item:last-child{flex:1}.label{flex-shrink:0;color:var(--muted);font-size:12px}.value{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-variant-numeric:tabular-nums}.muted{color:var(--muted)}.good{color:var(--good)}.warning{color:var(--warn)}#official{font-size:12px}
+@media(max-width:480px){.plugin-page{padding:16px}.tokenfree-card{padding:14px}.card-header{gap:8px}h1{font-size:13px}.card-actions{gap:6px}.demo{width:20px;max-width:20px;font-size:0}.demo option{font-size:12px}.status-line{gap:10px}.status-item{gap:4px;flex-shrink:1}.status-item:last-child{flex:1;min-width:64px}.label,.value,#official{font-size:11px}button{padding:0 8px}}
+</style>
+</head>
+<body>
+<main class="plugin-page" aria-label="插件页面">
+<section class="tokenfree-card" aria-labelledby="title">
+  <header class="card-header">
+    <h1 id="title"><a href="https://chat.deepseek.com/" target="_blank" rel="noopener noreferrer">chat.deepseek.com</a></h1>
+    <div class="card-actions" aria-label="连接操作">
+      <select class="demo" id="demo" aria-label="演示状态，仅使用虚构数据" title="演示状态"><option value="connected">演示 · 已连接</option><option value="signedout">演示 · 未连接</option><option value="pending">演示 · 待核实</option></select>
+      <button class="primary" id="use" aria-label="使用 TokenFree，用于当前会话并设为本配置默认">使用</button>
+      <button id="verify" hidden>核实</button>
+      <button id="account-action"></button>
+    </div>
+  </header>
+  <div class="status-line" aria-label="连接状态" role="status">
+    <span class="status-item"><span class="label">账号</span><span class="value" id="account"></span></span>
+    <span class="status-item"><span class="label">DSH</span><span class="value" id="selection"></span></span>
+    <span class="status-item"><span class="label">用量</span><span class="value" id="official"></span></span>
+  </div>
+</section>
+</main>
+<script>
+(()=>{
+const $=id=>document.getElementById(id);
+let state='connected',enabled=false;
+function render(){
+ const signedout=state==='signedout',waiting=state==='waiting',pending=state==='pending',verifying=state==='verifying';
+ $('account').textContent=signedout?'未连接':waiting?'等待登录':'已连接';
+ $('account').className='value '+(signedout||waiting?'muted':'good');
+ $('account-action').textContent=signedout?'登录':waiting?'取消':'退出';
+ $('account-action').className=signedout?'primary':'';
+ $('selection').textContent=signedout||waiting?'未启用':pending||verifying?'已暂停':enabled?'已启用':'未启用';
+ $('selection').className='value '+(pending||verifying?'warning':'');
+ $('selection').title=enabled?'当前会话及本配置默认已启用':pending||verifying?'新生成已暂停':'使用后用于当前会话，并设为本配置默认';
+ $('use').hidden=signedout||waiting||pending||verifying||enabled;
+ $('official').textContent=signedout||waiting?'用量未知':pending?'原请求待核实':verifying?'正在核实':'42,000 tokens';
+ $('official').title=signedout||waiting?'官网用量未知':pending?'原请求状态尚未确认，不会重新发送问题':verifying?'正在核实原请求':'演示数据：网页会话用量 42,000 tokens；官网文件功能预算 100,000 tokens，50% 自动压缩门槛 50,000 tokens';
+ $('official').setAttribute('aria-label',$('official').title);
+ $('official').className='value '+(pending||verifying?'warning':'muted');
+ $('verify').hidden=!pending&&!verifying;$('verify').disabled=verifying;
+}
+$('demo').addEventListener('change',()=>{state=$('demo').value;enabled=false;render()});
+$('account-action').addEventListener('click',()=>{state=state==='signedout'?'waiting':'signedout';enabled=false;render()});
+$('use').addEventListener('click',()=>{enabled=true;render()});
+$('verify').addEventListener('click',()=>{state='verifying';render()});
+render();
+})();
+</script>
+</body>
+</html>

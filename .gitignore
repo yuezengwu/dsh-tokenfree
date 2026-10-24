@@ -1,0 +1,17 @@
+node_modules/
+lib/
+.local/
+*.tgz
+.env
+.env.*
+credentials.json
+research/
+logs/
+cache/
+.DS_Store
+coverage/
+*.tsbuildinfo
+*.log
+browser-profile/
+.dsh-tokenfree/
+.dsh/

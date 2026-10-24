@@ -1,0 +1,25 @@
+name: 问题报告
+description: 安装、登录、对话、工具或恢复异常
+body:
+  - type: markdown
+    attributes:
+      value: 请勿上传 token、Cookie、完整请求日志或真实 chat 链接；只提供脱敏最小复现。
+  - type: textarea
+    id: versions
+    attributes:
+      label: 环境
+      description: 插件、DSH、macOS、Node、Chrome 版本，以及桌面/CLI/本机 Web 入口。
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 复现与预期
+      description: 操作步骤、预期结果、实际错误码；说明是否有工具已实际执行。
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 脱敏证据
+      description: 仅必要错误、阶段与合成样例。不要粘贴对话或文件内容。

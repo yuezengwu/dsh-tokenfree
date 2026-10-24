@@ -1,0 +1,12 @@
+# Applied only to an isolated headless profile. Resolve this local plugin relative to this file.
+- id: llm-deepseek
+  disabled: true
+- id: llm-deepseek-account
+  disabled: true
+- id: agent-default-model
+  config:
+    provider: tokenfree-deepseek-web
+    model: web-default
+- insert:
+    - id: dsh-tokenfree
+      name: ../lib/index.js

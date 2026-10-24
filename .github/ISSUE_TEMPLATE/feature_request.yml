@@ -1,0 +1,15 @@
+name: 功能建议
+description: 描述具体使用场景
+body:
+  - type: textarea
+    id: scenario
+    attributes:
+      label: 场景与期望
+      description: 当前遇到什么问题，希望用户能完成什么操作？
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: 边界
+      description: 是否需要新来源、新端口、账号共享或修改 DSH？当前首发仅本人单账号、DeepSeek Web、本地使用。

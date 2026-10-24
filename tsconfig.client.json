@@ -1,0 +1,22 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "lib": [
+      "ES2023",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "types": [
+      "react"
+    ],
+    "rootDir": "src/dsh/client",
+    "outDir": "lib/dsh/client",
+    "declaration": true,
+    "emitDeclarationOnly": true
+  },
+  "include": [
+    "src/dsh/client"
+  ],
+  "exclude": []
+}
