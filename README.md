@@ -23,10 +23,18 @@ TokenFree 为预算有限的学生而做，[DeepSeek Harness（DSH）](https://g
 
 [查看发布页](https://github.com/yuezengwu/dsh-tokenfree/releases) · [查看 npm 状态](https://www.npmjs.com/package/dsh-tokenfree)
 
-## 使用示例与教学
+## 入门教程
 
 - [ ] **TODO：使用示例**
-- [ ] **TODO：安装与入门教学**
+- [ ] **TODO：安装教学**
+
+### 登录配置
+
+![登录配置](assets/readme/tokenfree-login.png)
+
+### 选择模型
+
+![选择模型](assets/readme/tokenfree-model-selection.png)
 
 ## 常见问题
 
@@ -52,7 +60,7 @@ TokenFree 采用 MIT 协议，插件本身不收费。它使用你自己的 Deep
 
 ## 一起把门槛再降一点
 
-欢迎通过 [Issues](https://github.com/yuezengwu/dsh-tokenfree/issues) 反馈你在学习和研究中的需求，或帮助完善文档、测试与兼容性。使用示例和教学目前保留为 TODO。
+欢迎通过 [Issues](https://github.com/yuezengwu/dsh-tokenfree/issues) 反馈你在学习和研究中的需求，或帮助完善文档、测试与兼容性。使用示例和安装教学目前保留为 TODO。
 
 反馈问题时，请使用不含账号凭据、私人文件或完整对话日志的最小复现。
 
