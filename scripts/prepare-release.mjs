@@ -30,7 +30,8 @@ assert(start >= 0, 'Add dated release notes to CHANGELOG.md')
 const end = lines.findIndex((line, index) => index > start && line.startsWith('## '))
 const notes = `${lines.slice(start + 1, end < 0 ? undefined : end).join('\n').trim()}\n`
 
-// CI has tested this commit. Rebuild locally, check the actual package, then freeze one tarball.
+// CI has tested this commit. Recheck mutable advisories, then freeze one tarball.
+execFileSync('pnpm', ['audit', '--prod', '--audit-level', 'high'], { cwd: root, stdio: 'inherit' })
 execFileSync('pnpm', ['build'], { cwd: root, stdio: 'inherit' })
 execFileSync('pnpm', ['check:package'], { cwd: root, stdio: 'inherit' })
 assert.equal(run('git', ['status', '--porcelain']), '', 'Build changed release inputs')

@@ -6,7 +6,7 @@
 
 从 main 修改 package.json 的版本、DSH engines 与对应 SDK，更新锁文件、README 安装说明和带日期的 CHANGELOG。0.x 新能力或不兼容状态变化升 minor，兼容修复升 patch；不重复使用已发布的版本。
 
-执行 `pnpm install --frozen-lockfile`、`pnpm check`，审查公开文件、历史、实际 tgz 和第三方许可，确认没有凭据、真实 chat 标识或个人路径。浏览器夹具、真实验收与离线测试分别记录；未验收的能力在发行说明中写清楚。只有收到本次发布授权才移除 private，保持 registry 为官方 npm。
+执行 `pnpm install --frozen-lockfile`、`pnpm check`、`pnpm audit --prod --audit-level high`，审查公开文件、历史、实际 tgz 和第三方许可，确认没有凭据、真实 chat 标识或个人路径。浏览器夹具、真实验收与离线测试分别记录；未验收的能力在发行说明中写清楚。只有收到本次发布授权才移除 private，保持 registry 为官方 npm。
 
 提交全部发行输入并推送 main，等待该 commit 的 CI 全部通过：Ubuntu Node 22/24、macOS Node 24。安全报告使用仓库的私密漏洞渠道。
 
@@ -19,7 +19,7 @@ git tag -a v0.2.0 -m 'Release 0.2.0'
 pnpm release:prepare
 ```
 
-脚本要求干净 main、本地标签、远程 main 和成功 CI 全部对应同一 SHA，然后构建、检查实际包，生成 `.local/releases/0.2.0/` 下的 tarball、SHA256SUMS、release.json 和 notes.md。它不发布；目录已存在时拒绝覆盖。先在项目外安装这个实际包，验证 CLI 与原生宿主挂载，不使用个人登录做安装探针。
+脚本要求干净 main、本地标签、远程 main 和成功 CI 全部对应同一 SHA，再做生产依赖高危审计，然后构建、检查实际包，生成 `.local/releases/0.2.0/` 下的 tarball、SHA256SUMS、release.json 和 notes.md。它不发布；目录已存在时拒绝覆盖。先在项目外安装这个实际包，验证 CLI 与原生宿主挂载，不使用个人登录做安装探针。
 
 ## 3. 发布 npm
 
@@ -32,7 +32,7 @@ npm publish .local/releases/0.2.0/dsh-tokenfree-0.2.0.tgz --ignore-scripts --acc
 
 确认登录用户有包权限，在官方页面完成所需验证。不把 npm token 写进仓库、日志或 CI secrets。首次采用维护者本机发布；将来如迁移到 [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/)，另行明确配置仓库和工作流权限，不以本次发布授权自动添加。
 
-如果 npm 返回 staged 审批，完成该版本审批后查询 registry；stage 成功不等于正式发布。网络结果不明时先查询版本与 integrity，匹配则继续后续步骤；不要重新打包或盲目重发。
+如果 npm 返回 staged 审批，完成该版本审批后查询 registry；stage 成功不等于正式发布。网络结果不明时先查询版本与 integrity，匹配则继续后续步骤；不要重新打包或盲目重发。候选因检查失败需要修改时，先停止旧候选审批并将本地包移入独立归档，保留证据；在尚未发布该版本的前提下重新冻结 commit 和候选，不覆盖已有包。旧候选不得被批准。
 
 ## 4. 发布 GitHub
 
