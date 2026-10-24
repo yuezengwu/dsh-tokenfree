@@ -1,5 +1,18 @@
 # 正式发布前检查
 
+## 0.2.0 已正式发布（2026-10-24）
+
+[GitHub Release](https://github.com/yuezengwu/dsh-tokenfree/releases/tag/v0.2.0) 与 [npm](https://www.npmjs.com/package/dsh-tokenfree) 均已发布，npm latest=0.2.0。发行标签对应提交 `6a57b2f9c512bacafe678868c08ef47bb7b484fe`，本节之后的流程文档更新不改变该标签或发行包。
+
+- [精确发行提交的 CI](https://github.com/yuezengwu/dsh-tokenfree/actions/runs/40100219875) 全部通过：Ubuntu Node 22/24、macOS Node 24，各 129 项检查通过，并执行生产依赖高危审计。
+- 同一份 tgz 为 113 文件、541,640 字节，SHA-256 为 `fcbaf900841a48a55dd5cb6e4b06701b85f77d72b02bc6ba3a7588cd6b733570`。GitHub 资产、npm 标准 tarball 地址和本地冻结包均已下载核对；registry integrity 与 release.json 一致。
+- 从官方 registry 使用标准包名，在新的项目外目录安装 0.2.0；CLI、入口/客户端/Remote、原生 LlmRuntime 注册与卸载通过。安装版 DSH 的隔离 web/headless profile 同样从 registry 安装成功；Web 配置包含插件，headless 实际确认模型、自动压缩和策略持久化，退出 0。未使用个人账号或发送真实模型请求。
+- 发布前发现 [Zod 高危通告](https://github.com/advisories/GHSA-mrhx-c7xc-m3w5)，停止旧候选审批并升级插件内置/直接生产依赖至 4.6.6，重跑本地及远程检查。旧候选只在本机归档，未正式发布；本轮旧暂存已撤回。
+- 插件直接生产依赖审计为 0 已知漏洞。全开发锁仍因上游 DSH SDK 的 Zod 4.4.3 报告同一高危通告，宿主依赖未被插件覆盖；该范围已写入 Release 说明与 release.json，不声称全锁零告警。
+- npm 发布时扫描及标准地址的短暂 404 负缓存均已结束，并已完成无查询参数的下载和标准安装验证。处理原则补入 [发布流程](RELEASING.md)。
+
+本次是按 README 范围提供的首个公开发行，网页接入继续标为实验性；自然 50% 自动压缩、新策略/JSON 的完整真人组合及其他未验收项仍以发行说明与验证记录为准。
+
 ## 0.2.0 首次发行范围（2026-10-24）
 
 用户已明确授权设计并执行正式发布。0.2.0 按 [README](README.md) 的实际功能范围公开分发，网页适配器仍为实验性，未完成的自然 50% 触发、新策略/JSON 真实组合与跨宿主验收在 CHANGELOG 中公开，不宣称完整目标规格已经全部实机通过。此前“完整首发暂不放行”记录保留其当时范围。

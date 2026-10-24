@@ -2,6 +2,8 @@
 
 一个 npm 包，一份正式 tarball。发布由维护者明确发起；普通 push 和 CI 不自动发布，不把 DeepSeek 账号交给 CI。GitHub 与 npm 使用同一版本和同一份包。
 
+每一步成功后才执行下一步；CLI 返回非零时停止并检查实际状态，不因后续命令成功掩盖前一步失败。
+
 ## 1. 准备版本
 
 从 main 修改 package.json 的版本、DSH engines 与对应 SDK，更新锁文件、README 安装说明和带日期的 CHANGELOG。0.x 新能力或不兼容状态变化升 minor，兼容修复升 patch；不重复使用已发布的版本。
@@ -33,6 +35,10 @@ npm publish .local/releases/0.2.0/dsh-tokenfree-0.2.0.tgz --ignore-scripts --acc
 确认登录用户有包权限，在官方页面完成所需验证。不把 npm token 写进仓库、日志或 CI secrets。首次采用维护者本机发布；将来如迁移到 [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/)，另行明确配置仓库和工作流权限，不以本次发布授权自动添加。
 
 如果 npm 返回 staged 审批，完成该版本审批后查询 registry；stage 成功不等于正式发布。网络结果不明时先查询版本与 integrity，匹配则继续后续步骤；不要重新打包或盲目重发。候选因检查失败需要修改时，先停止旧候选审批并将本地包移入独立归档，保留证据；在尚未发布该版本的前提下重新冻结 commit 和候选，不覆盖已有包。旧候选不得被批准。
+
+若 npm 拒绝覆盖同版本的旧暂存，先核对并撤回那个未发布候选，再发布修复包；不批准旧包，不改版本号绕过核对。操作前保留本地 tarball 与校验记录。
+
+npm 返回发布成功后还可能等待[发布时安全扫描](https://github.blog/changelog/2026-07-28-npm-publish-time-malware-scanning-and-dual-use-metadata/)。区分上传成功、公开元数据可见、tarball 可下载和标准包名可安装；可能还存在短暂的 404 负缓存。按合理间隔重查，不重复发布同版本，也不把带查询参数可下载单独当作标准安装通过。扫描被拒绝时保留结果并走 npm 的正式申诉渠道。
 
 ## 4. 发布 GitHub
 
