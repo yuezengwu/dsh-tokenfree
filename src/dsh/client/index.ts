@@ -1,6 +1,5 @@
 import type { Context } from '@deepseek-ai/cordis'
 import type { SessionId } from '@deepseek-ai/dsh-session/types'
-import type { ModelSelectionProjection } from '@deepseek-ai/dsh-api-session-controller/types'
 import type {} from '@deepseek-ai/dsh-api-session-controller/client'
 import type {} from '@deepseek-ai/dsh-api-session-controller/remote'
 import type {} from '@deepseek-ai/dsh-client-ui-session/client'
@@ -31,7 +30,7 @@ export async function apply(ctx: Context): Promise<() => Promise<void>> {
         const defaults = await unwrap(scope.remote.tokenfree.defaultModel())
         const sessions = scope.get('sessions')
         const binding = id ? sessions?.binding(id as SessionId) : undefined
-        const projection = binding?.session.projections.faceOf('modelSelection').getSnapshot() as ModelSelectionProjection | undefined
+        const projection = binding?.session.projections.faceOf('modelSelection').getSnapshot()
         return { sessionId: id,
           selected: id === undefined ? undefined : projection === undefined ? undefined : projection.next === null ? defaults.selected : projection.next.provider === provider && projection.next.model === model,
           defaultSelected: defaults.selected,

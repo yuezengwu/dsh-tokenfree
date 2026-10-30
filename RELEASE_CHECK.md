@@ -1,5 +1,11 @@
 # 正式发布前检查
 
+## 2026-10-30 main：rc.4 / alpha.2 兼容验证
+
+保留 rc.3，新增固定源码 rc.4 / alpha.2；三组协调发布 SDK profile 分别完整 129 项检查通过。同一 alpha.2 构建 tarball 在三个精确源码上通过隔离 web 组合及 headless 原生挂载，实际确认提供方、固定模型、自动压缩后端和策略，禁止网络及模型请求。客户端只移除过期类型导入，测试按官方新的 executor / pipeline 接口装配；核心生成、压缩与工具 guard 逻辑不变。完整 SHA、CI、安装命令及未验收范围见[兼容约定](COMPATIBILITY.md)，当前提交/main 证据随 PR 保存。
+
+CLI latest/next 已移到尚无官方 tag/Release 的 rc.5；不加入支持范围。npm 0.2.0 与 v0.2.0 标签保持原 rc.3 范围；没有新 npm 发布、个人宿主变更、真实账号或自然 50% 验收结论。下文历史状态保留原日期。
+
 ## 0.2.0 已正式发布（2026-10-24）
 
 [GitHub Release](https://github.com/yuezengwu/dsh-tokenfree/releases/tag/v0.2.0) 与 [npm](https://www.npmjs.com/package/dsh-tokenfree) 均已发布，npm latest=0.2.0。发行标签对应提交 `6a57b2f9c512bacafe678868c08ef47bb7b484fe`，本节之后的流程文档更新不改变该标签或发行包。

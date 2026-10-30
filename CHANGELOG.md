@@ -1,5 +1,12 @@
 # 变更记录
 
+## Unreleased — main 兼容更新（2026-10-30）
+
+- 保留 DSH rc.3，验证 rc.4 与 alpha.2 的协调 SDK、固定源码及同一包隔离安装。rc.5 尚待官方源码 tag / Release。
+- 移除已撤出的客户端类型导入，沿公开 projection 推导；测试按新版原生工具执行器与单次调用 pipeline 装配，原 guard / 压缩逻辑保持。
+- 新增兼容一致性门禁、三个精确源码宿主 CI 和 Git 依赖 prepare 构建入口，保留 Node 22/24 与 Linux/macOS 检查。
+- 新支持属于 main，未发布 npm 新版本或新标签；完整范围见 [兼容约定](COMPATIBILITY.md)。
+
 ## 0.2.0 (2026-10-24)
 
 首个可安装的公开版本。支持 macOS、DSH 0.2.1-rc.3 和 Google Chrome；网页适配器仍为实验性。

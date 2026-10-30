@@ -1,3 +1,4 @@
+import { installNativeToolExecutor } from './helpers/native-plugins.mjs'
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { writeFile, readFile } from 'node:fs/promises'
@@ -20,6 +21,7 @@ test('actual DSH AgentLoop persists two turns and reuses Web chat through public
   const file = join(f.home, 'native-events.json')
   try {
     for (const plugin of [SessionStore, AgentRegistry, LlmRuntime, SessionProjectionRegistry, ToolRuntime, SystemPrompt]) await ctx.plugin(plugin)
+    await installNativeToolExecutor(ctx)
     // Test persistence listener: actual public flush must finish before the plugin confirms its cursor.
     ctx.on('session/flush', async session => { await writeFile(file, JSON.stringify(session.snapshotEvents())); flushes++ })
     let native
