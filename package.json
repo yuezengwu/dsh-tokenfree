@@ -127,7 +127,7 @@
     "release:prepare": "node scripts/prepare-release.mjs",
     "compat:check": "node scripts/check-compatibility.mjs",
     "compat:host": "node scripts/verify-host.mjs",
-    "prepare": "pnpm build"
+    "prepare": "pnpm build 1>&2"
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": "4.0.5 || 4.0.6-alpha.1",
