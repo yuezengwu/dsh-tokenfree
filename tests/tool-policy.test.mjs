@@ -1,3 +1,4 @@
+import { installNativeToolExecutor, executeNativeCall } from './helpers/native-plugins.mjs'
 import{test}from'node:test'
 import assert from'node:assert/strict'
 import{writeFile}from'node:fs/promises'
@@ -20,6 +21,7 @@ const message=text=>createUserMessage({content:[{type:'text',text}],source:{kind
 async function harness(){
  const f=await setup(),ctx=new Context();let adapter
  for(const p of[SessionStore,AgentRegistry,LlmRuntime,SessionProjectionRegistry,ToolRuntime,SystemPrompt])await ctx.plugin(p)
+ await installNativeToolExecutor(ctx)
  ctx.on('session/flush',async session=>writeFile(join(f.home,session.id+'.json'),JSON.stringify(session.snapshotEvents())))
  const native=new DshBoundary(ctx,a=>adapter?.reconcile(a))
  let bridge;let layer
@@ -65,7 +67,7 @@ test('delivery checks reject changed called tools as a whole batch but permit un
   assert.throws(()=>f.bridge.check(a.id,calls,captured),e=>e.code==='TOOL_CHANGED')
   assert.equal(runs,0)
   // The guard does not take over calls produced by another adapter.
-  const result=await f.ctx.tools.execute({callId:ToolCallId('other-provider-call'),name:tool.name,arguments:{},agent:a,signal:new AbortController().signal})
+  const result=await executeNativeCall(f.ctx, {callId:ToolCallId('other-provider-call'),name:tool.name,arguments:{},agent:a,signal:new AbortController().signal})
   assert.equal(result.isError,false);assert.equal(runs,1)
  }finally{remove();await f.close()}
 })
@@ -85,7 +87,7 @@ test('cold native binding is rehydrated from committed state, and nested web_sea
   const oldOperation=rootId.split('_')[1]
   await assert.rejects(f.adapter.toolCatalogueForCall(a.id,oldOperation),e=>e.code==='TOOL_BINDING')
   f.ctx.tools.register({...definition('web_search','Fixture only'),execute:async()=>{runs++;return'forbidden'}})
-  const blocked=await f.ctx.tools.execute({callId:ToolCallId(rootId+':ptc:1'),rootCallId:ToolCallId(rootId),name:'web_search',arguments:{},agent:a,signal:new AbortController().signal})
+  const blocked=await executeNativeCall(f.ctx, {callId:ToolCallId(rootId+':ptc:1'),rootCallId:ToolCallId(rootId),name:'web_search',arguments:{},agent:a,signal:new AbortController().signal})
   assert.equal(blocked.isError,true);assert.equal(runs,1)
  }finally{approve?.();remove();await f.close()}
 })
@@ -133,7 +135,7 @@ test('native outer dispatch cannot bypass changed inner definitions or the searc
  f.ctx.tools.register({...definition('outer_tool','Fixture transport'),execute:async(_,exec)=>{
   remove();remove=f.ctx.tools.register({...definition('inner_tool','Changed inner'),execute:async()=>{innerRuns++;return'new'}})
   for(const name of ['inner_tool','web_search']){
-   const result=await f.ctx.tools.execute({callId:ToolCallId(exec.rootCallId+':ptc:'+name),rootCallId:exec.rootCallId,parent:exec.token,name,arguments:{},agent:exec.agent,signal:exec.signal})
+   const result=await executeNativeCall(f.ctx, {callId:ToolCallId(exec.rootCallId+':ptc:'+name),rootCallId:exec.rootCallId,parent:exec.token,name,arguments:{},agent:exec.agent,signal:exec.signal})
    assert(JSON.stringify(result).includes(name==='inner_tool'?'工具已变化':'不支持网页搜索'));denials.push(result.isError)
   }
   return'Outer observed the native denials'

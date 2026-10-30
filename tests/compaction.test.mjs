@@ -1,3 +1,4 @@
+import { installNativeToolExecutor } from './helpers/native-plugins.mjs'
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { writeFile } from 'node:fs/promises'
@@ -57,6 +58,7 @@ async function harness({ auto = true, count = 500, shrinkFailure = false, preset
   f.web.answer = p => ({ protocol_version: 1, request_id: p.request_id, kind: 'final', text: 'Recorded OLD_FACT. ' + 'historical detail '.repeat(180) })
   f.web.summary = () => shrinkFailure ? 'not smaller '.repeat(10000) : '## Current Work\n- Preserve OLD_FACT.\n## Next Step\n- Answer the retained request.'
   for (const plugin of [SessionStore, AgentRegistry, LlmRuntime, SessionProjectionRegistry, ToolRuntime, SystemPrompt, TokenMeter]) await ctx.plugin(plugin)
+  await installNativeToolExecutor(ctx)
   const disk = { fail: false }
   ctx.on('session/flush', async session => { if (disk.fail) throw new Error('fixture disk failure'); await writeFile(join(f.home, 'native.json'), JSON.stringify(session.snapshotEvents())) })
   const native = new DshBoundary(ctx, attempt => { void adapter?.reconcile(attempt) })
