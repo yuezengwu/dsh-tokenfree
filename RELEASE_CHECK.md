@@ -1,5 +1,8 @@
 # 正式发布前检查
 
+2026-10-31 main rc.5 兼容：官方源码固定 `b830ec950faba0a46dda564be3e2d854afed94f1`，新增 rc.5，保留 rc.3 / rc.4 / alpha.2。独立 rc.5 SDK 冻结安装、类型、129 项检查及实际包检查通过；同一 alpha.2 构建 tarball 在固定 rc.5 的隔离 web 组合与 headless 原生压缩挂载通过，零网络 / 模型调用。当前提交及 main CI、不可变安装随 PR 保存。无业务源码变更，旧 npm 0.2.0 仍仅支持 rc.3，未发布新版本或标签，也不补充真实账号或自然 50% 验收。详见[兼容约定](COMPATIBILITY.md)。
+
+
 ## 2026-10-30 main：rc.4 / alpha.2 兼容验证
 
 保留 rc.3，新增固定源码 rc.4 / alpha.2；三组协调发布 SDK profile 分别完整 129 项检查通过。同一 alpha.2 构建 tarball 在三个精确源码上通过隔离 web 组合及 headless 原生挂载，实际确认提供方、固定模型、自动压缩后端和策略，禁止网络及模型请求。客户端只移除过期类型导入，测试按官方新的 executor / pipeline 接口装配；核心生成、压缩与工具 guard 逻辑不变。完整 SHA、CI、安装命令及未验收范围见[兼容约定](COMPATIBILITY.md)，当前提交/main 证据随 PR 保存。

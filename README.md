@@ -12,7 +12,7 @@ TokenFree 为预算有限的学生而做，[DeepSeek Harness（DSH）](https://g
 
 首个公开版本为 **0.2.0**。当前支持范围：**macOS、DSH 0.2.1-rc.3、已安装 Google Chrome**。DeepSeek 网页接入仍为实验性；官网协议变化可能影响可用性。
 
-`main` 另外验证了 DSH **0.2.1-rc.4 / 0.2.2-alpha.2**，保留 rc.3；这些改动尚未进入 npm 0.2.0。新增兼容的固定版本安装命令、源码 SHA 和验证边界见[兼容约定](COMPATIBILITY.md)。当前 CLI npm latest/next 已指向待源码验证的 rc.5，请按兼容约定固定已验证版本；alpha.2 要求 Node >=24.9。
+`main` 另外验证了 DSH **0.2.1-rc.4 / 0.2.1-rc.5 / 0.2.2-alpha.2**，保留 rc.3；这些改动尚未进入 npm 0.2.0。新增兼容的固定版本安装命令、源码 SHA 和验证边界见[兼容约定](COMPATIBILITY.md)。当前 CLI npm latest/next 为已验证的 rc.5，请按兼容约定固定版本；alpha.2 要求 Node >=24.9。
 
 1. 在 DSH 的「插件 → 添加插件」中输入 `dsh-tokenfree@0.2.0` 并安装。
 2. 打开「设置 → TokenFree」，点击「登录」，在专用官方窗口中完成 DeepSeek 登录。
