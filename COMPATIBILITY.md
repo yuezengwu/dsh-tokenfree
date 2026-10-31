@@ -15,7 +15,7 @@
 
 alpha.2 移除了旧的 ModelSelectionProjection 类型导出；客户端从公开 projection 接口直接推导类型，无运行时行为变更。alpha.2 将工具执行器拆为独立插件，并把 tools.execute 改为批次入口：仅更新裸 SDK 测试装配及直接调用夹具，使用官方原生 executor / pipeline；真实宿主仍由其官方组合提供执行器，不在 TokenFree 中复制或接管工具执行。原生工具等待审批、目录变化、嵌套父令牌、取消与卸载拒绝的原断言继续通过。
 
-同一 alpha.2 构建包在三个精确源码宿主各安装到独立 web / headless profile。web 只检查组合配置；headless 禁用任务 runner，以真实原生宿主探针确认提供方、固定模型、TokenFreeCompactionEngine、auto=true 及 retainTokens=0 / compactionRetries=0 策略。探针使用全新临时账号路径，禁止 fetch 和模型调用。全量测试另以合成网页夹具覆盖原生 50% 压缩、checkpoint、新 chat 承接、流式、停止/恢复、工具与会话隔离。CI 对发布依赖的 Node 22/24、Linux/macOS 及三个固定源码宿主运行；当前提交 / main CI、不可变安装和产物核对链接随 PR 保存。
+2026-10-30，同一 alpha.2 构建包在当时三个精确源码宿主各安装到独立 web / headless profile。web 只检查组合配置；headless 禁用任务 runner，以真实原生宿主探针确认提供方、固定模型、TokenFreeCompactionEngine、auto=true 及 retainTokens=0 / compactionRetries=0 策略。探针使用全新临时账号路径，禁止 fetch 和模型调用。全量测试另以合成网页夹具覆盖原生 50% 压缩、checkpoint、新 chat 承接、流式、停止/恢复、工具与会话隔离。CI 对发布依赖的 Node 22/24、Linux/macOS 及四个固定源码宿主运行；当前提交 / main CI、不可变安装和产物核对链接随 PR 保存。
 
 这不是新的真实账号、自然达到 50% 门槛、Chrome 登录、Desktop 或完整官网组合验收；历史真实样本保持各自原版本与日期。不修改用户账号、个人配置或日常宿主。
 
