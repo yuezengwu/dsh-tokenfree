@@ -1,5 +1,8 @@
 # TokenFree 技术方案
 
+2026-10-31 main rc.5 兼容：官方源码固定 `b830ec950faba0a46dda564be3e2d854afed94f1`，新增 rc.5，保留 rc.3 / rc.4 / alpha.2。独立 rc.5 SDK 冻结安装、类型、129 项检查及实际包检查通过；同一 alpha.2 构建 tarball 在固定 rc.5 的隔离 web 组合与 headless 原生压缩挂载通过，零网络 / 模型调用。当前提交及 main CI、不可变安装随 PR 保存。无业务源码变更，旧 npm 0.2.0 仍仅支持 rc.3，未发布新版本或标签，也不补充真实账号或自然 50% 验收。详见[兼容约定](COMPATIBILITY.md)。
+
+
 2026-10-23。本文是唯一的当前技术主方案，对应 [产品规格](PRODUCT_SPEC.md) 和 [规格汇总](SPEC_STATUS.md)。当前交付范围见 [主链实现](MAIN_CHAIN.md) 和 [计量与压缩](COMPACTION.md)。多会话并发已按本方案实施；源码、本地验证与官网真实验收分别记录。
 
 最新决策恢复专用 Chrome 资料与官方登录窗口，通过调试管道控制，不新增监听端口；不安装扩展、不读取日常 Chrome 数据。凭据共享、退出和验证边界见[专用窗口登录](BROWSER_CONNECTION.md)。
