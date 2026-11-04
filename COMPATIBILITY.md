@@ -1,6 +1,6 @@
 # DSH 兼容与验证边界
 
-核对日期：2026-10-31。npm 发布版 `dsh-tokenfree@0.2.0` 仍固定支持 DSH `0.2.1-rc.3`；它的发行提交、包及标签没有变化。下表新增支持仅属于当前 main，尚未发布新的 TokenFree 版本。
+核对日期：2026-11-04。npm 发布版 `dsh-tokenfree@0.2.0` 仍固定支持 DSH `0.2.1-rc.3`；它的发行提交、包及标签没有变化。下表新增支持仅属于当前 main，尚未发布新的 TokenFree 版本。
 
 ## main 已验证宿主
 
@@ -10,6 +10,7 @@
 | 0.2.1-rc.4 | `504a01a9578abc2c6f1fb896b1dc322c9fe24f66` | 协调 SDK 全量检查、同一包的隔离 web 配置与 headless 原生挂载 |
 | 0.2.1-rc.5 | `b830ec950faba0a46dda564be3e2d854afed94f1` | 协调 rc.5 SDK 全量检查、同一 alpha.2 构建包的隔离 web 配置与 headless 原生挂载 |
 | 0.2.2-alpha.2 | `f3803c96974ad4a94195fb97e5c637e9c2a3afe3` | 协调 SDK 全量检查、同一包的隔离 web 配置与 headless 原生挂载；宿主要求 Node >=24.9 |
+| 0.2.2-alpha.3 | `05b1cae8db6e674c5685101494d4eec24652424a` | 协调 SDK、129 项检查、同一包隔离 web 组合与 headless 原生挂载；Node >=24.9 |
 
 2026-10-30 三个发布 SDK profile 均完成干净安装、frozen install、构建、类型、129 项检查与实际包校验。开发依赖固定 alpha.2，重新解析锁文件避免混入旧 SDK；peer 与 engines 保留 rc.3 并显式追加 rc.4 / alpha.2。共享清单、CI 精确源码 SHA、引擎与开发依赖由兼容一致性门禁核对。
 
@@ -19,9 +20,17 @@ alpha.2 移除了旧的 ModelSelectionProjection 类型导出；客户端从公�
 
 这不是新的真实账号、自然达到 50% 门槛、Chrome 登录、Desktop 或完整官网组合验收；历史真实样本保持各自原版本与日期。不修改用户账号、个人配置或日常宿主。
 
+## 2026-11-04 alpha.3
+
+官方 alpha.3 于 2026-11-03 07:56:48 UTC 发布，精确 SHA 见上表。开发 SDK 协调至 alpha.3，Cordis 4.0.6-alpha.2、Loader 1.0.7-alpha.2；引擎、peer、清单、CI、锁文件追加 alpha.3，保留四个已支持宿主。冻结安装、类型、129 项检查、生产依赖审计、构建、实际包校验通过。核心生成、流式、取消/恢复、工具、会话隔离及原生 50%/checkpoint 组合继续使用既有合成夹具，无生产源码变更。
+
+同一 alpha.3 构建 tarball 在固定 alpha.3 源码上通过 web 配置组合及真实 headless 提供方、模型、TokenFreeCompactionEngine、auto=true / 策略挂载，零网络和模型请求。headless 探针确认 Agent 作用域的原生压缩，不冒充有完整标准预设服务；标准预设自动接线由 SDK 合成夹具另验收。五个源码宿主 CI 安装同一份包，当前提交/main、固定 SHA 安装和产物核对随 PR 保存。其余四个宿主的本地证据保持原日期；没有真实账号、自然50%或 Web UI 新验收。
+
+CLI npm `latest=next=0.2.1-rc.5`、`alpha=0.2.2-alpha.3`，SDK 标签各自独立。新增兼容只属于 main，npm 0.2.0 仍仅承诺 rc.3，未创建新发布或标签。
+
 ## 当前 npm 渠道
 
-CLI npm `latest=next=0.2.1-rc.5`，`alpha=0.2.2-alpha.2`；各 SDK 标签独立。官方 rc.5 tag / Release 已于 2026-10-30 02:12:26 UTC 补齐，精确源码见上表。2026-10-31 保留 rc.3、rc.4、alpha.2，追加 rc.5；开发依赖保留 alpha.2，rc.5 的 Cordis 4.0.5 / loader 1.0.6 协调 SDK 在独立干净 profile 完成冻结安装、类型、129 项检查与实际包检查。rc.5 未拆出原生工具执行器，测试沿清单使用旧宿主组合。
+2026-10-31 历史记录：CLI npm `latest=next=0.2.1-rc.5`，`alpha=0.2.2-alpha.2`；各 SDK 标签独立。官方 rc.5 tag / Release 已于 2026-10-30 02:12:26 UTC 补齐，精确源码见上表。2026-10-31 保留 rc.3、rc.4、alpha.2，追加 rc.5；开发依赖保留 alpha.2，rc.5 的 Cordis 4.0.5 / loader 1.0.6 协调 SDK 在独立干净 profile 完成冻结安装、类型、129 项检查与实际包检查。rc.5 未拆出原生工具执行器，测试沿清单使用旧宿主组合。
 
 rc.5 只调整思考展示，TokenFree 不消费变更的 Slot；本轮无业务源码、协议、压缩或工具执行变动。固定源码完成冻结安装与完整构建，同一 alpha.2 构建 tarball 在 rc.5 进行 web 组合配置及 headless 原生提供方、模型、压缩 auto/策略挂载验证，禁止网络及模型调用。四个精确源码宿主纳入 CI；当前提交 / main CI、不可变安装与产物比对随 PR 保存。之前三个宿主的本地测试保持 2026-10-30 日期。
 
@@ -37,8 +46,8 @@ npx @deepseek-ai/dsh@0.2.1-rc.5 --profile web
 alpha.2 同样固定 CLI 版本，并先满足 Node >=24.9：
 
 ```sh
-npx @deepseek-ai/dsh@0.2.2-alpha.2 plugin --profile web add github:yuezengwu/dsh-tokenfree#main
-npx @deepseek-ai/dsh@0.2.2-alpha.2 --profile web
+npx @deepseek-ai/dsh@0.2.2-alpha.3 plugin --profile web add github:yuezengwu/dsh-tokenfree#main
+npx @deepseek-ai/dsh@0.2.2-alpha.3 --profile web
 ```
 
 旧 npm 包仍按 README 与原 rc.3 发行范围使用。Git 依赖通过 prepare 构建；无新 npm 发布或 tag。审计安装使用 PR 中提供的完整不可变提交 SHA，避免 main 后续移动。
