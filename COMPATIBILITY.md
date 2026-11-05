@@ -1,6 +1,6 @@
 # DSH 兼容与验证边界
 
-核对日期：2026-11-04。npm 发布版 `dsh-tokenfree@0.2.0` 仍固定支持 DSH `0.2.1-rc.3`；它的发行提交、包及标签没有变化。下表新增支持仅属于当前 main，尚未发布新的 TokenFree 版本。
+核对日期：2026-11-05。npm 发布版 `dsh-tokenfree@0.2.0` 仍固定支持 DSH `0.2.1-rc.3`；它的发行提交、包及标签没有变化。下表新增支持仅属于当前 main，尚未发布新的 TokenFree 版本。
 
 ## main 已验证宿主
 
@@ -11,6 +11,7 @@
 | 0.2.1-rc.5 | `b830ec950faba0a46dda564be3e2d854afed94f1` | 协调 rc.5 SDK 全量检查、同一 alpha.2 构建包的隔离 web 配置与 headless 原生挂载 |
 | 0.2.2-alpha.2 | `f3803c96974ad4a94195fb97e5c637e9c2a3afe3` | 协调 SDK 全量检查、同一包的隔离 web 配置与 headless 原生挂载；宿主要求 Node >=24.9 |
 | 0.2.2-alpha.3 | `05b1cae8db6e674c5685101494d4eec24652424a` | 协调 SDK、129 项检查、同一包隔离 web 组合与 headless 原生挂载；Node >=24.9 |
+| 0.2.2-rc.1 | `66491b05e3f05ad35bcdd4f6cd7ed26041d9e3db` | 协调 SDK、129 项检查、同一包隔离 web 组合与 headless 原生挂载；Node >=24.9 |
 
 2026-10-30 三个发布 SDK profile 均完成干净安装、frozen install、构建、类型、129 项检查与实际包校验。开发依赖固定 alpha.2，重新解析锁文件避免混入旧 SDK；peer 与 engines 保留 rc.3 并显式追加 rc.4 / alpha.2。共享清单、CI 精确源码 SHA、引擎与开发依赖由兼容一致性门禁核对。
 
@@ -19,6 +20,19 @@ alpha.2 移除了旧的 ModelSelectionProjection 类型导出；客户端从公�
 2026-10-30，同一 alpha.2 构建包在当时三个精确源码宿主各安装到独立 web / headless profile。web 只检查组合配置；headless 禁用任务 runner，以真实原生宿主探针确认提供方、固定模型、TokenFreeCompactionEngine、auto=true 及 retainTokens=0 / compactionRetries=0 策略。探针使用全新临时账号路径，禁止 fetch 和模型调用。全量测试另以合成网页夹具覆盖原生 50% 压缩、checkpoint、新 chat 承接、流式、停止/恢复、工具与会话隔离。CI 对发布依赖的 Node 22/24、Linux/macOS 及四个固定源码宿主运行；当前提交 / main CI、不可变安装和产物核对链接随 PR 保存。
 
 这不是新的真实账号、自然达到 50% 门槛、Chrome 登录、Desktop 或完整官网组合验收；历史真实样本保持各自原版本与日期。不修改用户账号、个人配置或日常宿主。
+
+## 2026-11-05 0.2.2-rc.1
+
+官方 rc.1 于 2026-11-04 13:07:14 UTC 发布，固定源码 `66491b05e3f05ad35bcdd4f6cd7ed26041d9e3db`。CLI npm `latest=0.2.1-rc.5`、`next=0.2.2-rc.1`、`alpha=0.2.2-alpha.3`；相关 SDK 标签独立核对。开发 SDK 协调至 rc.1、Cordis 4.1.0 / Loader 1.1.0；引擎、peer、共享清单、CI 与锁文件追加第六宿主，保留五个旧版本及 SHA。与 alpha.3 的官方源码差异全部为 387 处版本清单，本轮仍独立构建、安装与验收。
+
+冻结安装、类型、129 项检查、生产依赖审计、构建与实际包通过。固定源码冻结安装和完整构建 10/10 门禁通过，同一发布依赖构建 tarball 在新宿主通过隔离 web 配置组合与 headless 原生挂载，确认提供方、固定模型、TokenFreeCompactionEngine、auto=true、retainTokens=0 / compactionRetries=0，零网络 / 模型调用。headless 确认 Agent 作用域接线，完整标准预设自动接线另由 SDK 合成夹具验证。生产源码和测试不变；35 个 JavaScript 产物中 33 个与 M42 字节相同，两份 TypeRT 各只差一行依赖路径注释。
+
+六个精确源码宿主 CI 安装同一份 tarball；当前提交 / main 的九项 CI、完整 SHA 安装及产物核对随 PR 保存。旧宿主本地证据保留原日期，不重写为本轮真实通过。没有真实账号、Chrome 登录、自然达到 50% 或 Web UI 新验收；npm 0.2.0 及 GitHub v0.2.0 仍限原 rc.3 范围，没有新发布或标签。
+
+```sh
+# Verified next; Node >=24.9. Replace main with a verified merge SHA for an immutable install.
+npx @deepseek-ai/dsh@0.2.2-rc.1 plugin --profile web add github:yuezengwu/dsh-tokenfree#main
+```
 
 ## 2026-11-04 alpha.3
 
