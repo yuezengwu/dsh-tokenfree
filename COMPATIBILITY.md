@@ -1,6 +1,12 @@
 # DSH 兼容与验证边界
 
-核对日期：2026-11-05。npm 发布版 `dsh-tokenfree@0.2.0` 仍固定支持 DSH `0.2.1-rc.3`；它的发行提交、包及标签没有变化。下表新增支持仅属于当前 main，尚未发布新的 TokenFree 版本。
+核对日期：2026-11-06。npm 发布版 `dsh-tokenfree@0.2.0` 仍固定支持 DSH `0.2.1-rc.3`；它的发行提交、包及标签没有变化。下表新增支持仅属于当前 main，尚未发布新的 TokenFree 版本。
+
+## 当前渠道与默认安装（2026-11-06）
+
+CLI npm `latest=next=0.2.2-rc.1`、`alpha=0.2.2-alpha.3`；store 独立 `latest=0.1.2-alpha.2`、`next=0.2.2-rc.1`、`alpha=0.2.2-alpha.3`。只有 CLI latest 从 rc.5 升至已验证的 rc.1，其余四十组已跟踪标签不变；别名与固定 rc.1 的 tarball/integrity 一致，官方 SHA 仍为 `66491b05e3f05ad35bcdd4f6cd7ed26041d9e3db`。
+
+默认 main 安装固定 rc.1（Node >=24.9），保留 rc.5 回退及全部六个宿主；npm 0.2.0 仍只承诺原 rc.3 范围。生产源码、测试、SDK、锁文件、引擎、清单与 CI 均不改。冻结安装、兼容一致性、构建、实际包检查、当前提交/main CI、完整 SHA 安装与产物比对随 PR 保存。本地 129 项检查、固定源码及同包原生挂载证据保留 2026-11-05 日期，不重复完整本地测试，不新增真实账号或自然 50% 验收，也不发布新版本或标签。
 
 ## main 已验证宿主
 
@@ -42,7 +48,7 @@ npx @deepseek-ai/dsh@0.2.2-rc.1 plugin --profile web add github:yuezengwu/dsh-to
 
 CLI npm `latest=next=0.2.1-rc.5`、`alpha=0.2.2-alpha.3`，SDK 标签各自独立。新增兼容只属于 main，npm 0.2.0 仍仅承诺 rc.3，未创建新发布或标签。
 
-## 当前 npm 渠道
+## 2026-10-31 rc.5（历史）
 
 2026-10-31 历史记录：CLI npm `latest=next=0.2.1-rc.5`，`alpha=0.2.2-alpha.2`；各 SDK 标签独立。官方 rc.5 tag / Release 已于 2026-10-30 02:12:26 UTC 补齐，精确源码见上表。2026-10-31 保留 rc.3、rc.4、alpha.2，追加 rc.5；开发依赖保留 alpha.2，rc.5 的 Cordis 4.0.5 / loader 1.0.6 协调 SDK 在独立干净 profile 完成冻结安装、类型、129 项检查与实际包检查。rc.5 未拆出原生工具执行器，测试沿清单使用旧宿主组合。
 
@@ -50,18 +56,27 @@ rc.5 只调整思考展示，TokenFree 不消费变更的 Slot；本轮无业务
 
 这不补充真实账号或自然 50% 压缩验收，不改变 npm 0.2.0 的 rc.3 支持范围。
 
-使用新增兼容需安装 main，而非旧 npm 0.2.0：
+## main 安装（2026-11-06）
+
+使用新增兼容需安装 Git main；旧 npm 0.2.0 仍按 README 搭配原 rc.3。默认固定 rc.1，需要 Node >=24.9：
+
+```sh
+npx @deepseek-ai/dsh@0.2.2-rc.1 plugin --profile web add github:yuezengwu/dsh-tokenfree#main
+npx @deepseek-ai/dsh@0.2.2-rc.1 --profile web
+```
+
+保留先前默认版 rc.5 回退：
 
 ```sh
 npx @deepseek-ai/dsh@0.2.1-rc.5 plugin --profile web add github:yuezengwu/dsh-tokenfree#main
 npx @deepseek-ai/dsh@0.2.1-rc.5 --profile web
 ```
 
-alpha.2 同样固定 CLI 版本，并先满足 Node >=24.9：
+alpha.3 同样固定 CLI 版本并满足 Node >=24.9；alpha.2 保留支持：
 
 ```sh
 npx @deepseek-ai/dsh@0.2.2-alpha.3 plugin --profile web add github:yuezengwu/dsh-tokenfree#main
 npx @deepseek-ai/dsh@0.2.2-alpha.3 --profile web
 ```
 
-旧 npm 包仍按 README 与原 rc.3 发行范围使用。Git 依赖通过 prepare 构建；无新 npm 发布或 tag。审计安装使用 PR 中提供的完整不可变提交 SHA，避免 main 后续移动。
+Git 依赖通过 prepare 构建；无新 npm 发布或 tag。审计安装使用 PR 中提供的完整不可变提交 SHA，避免 main 后续移动。
