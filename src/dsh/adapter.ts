@@ -12,6 +12,7 @@ import { decodeResponse, modelInput, messageHash } from '../core/codec.js'
 import { allowedTools, defaultPolicy, parsePolicy, validatePolicyResult } from '../core/policy.js'
 import { SessionEngine } from '../core/session.js'
 import { TokenFreeError } from '../core/errors.js'
+import { providerLlmError } from './llm-error.js'
 import type { NativeBoundary, NativeAttempt, CompactionAnchor, WebTransport, Block, Tool, SessionPolicy } from '../core/types.js'
 import { digest, LocalStore } from '../local/store.js'
 import { failureCategory } from '../local/diagnostics.js'
@@ -278,7 +279,7 @@ export class TokenFreeAdapter extends LlmAdapter {
       log?.write('model.failed', { operationId, ...failureCategory(error), elapsedMs: Date.now() - started })
       if (error instanceof TokenFreeError) {
         if (error.code === 'AUTH' && credential) await this.dependencies.authRejected?.(credential)
-        throw new LlmError(error.message, error.code, error.details)
+        throw providerLlmError({ message: error.message, code: error.code, ...error.details })
       }
       if (error instanceof LlmError) throw error
       throw new LlmError('DeepSeek Web operation failed. Inspect the local operation log; it was not replayed.', 'TRANSPORT')
