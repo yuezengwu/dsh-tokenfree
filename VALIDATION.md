@@ -1,5 +1,11 @@
 # 验证状态
 
+## 2026-11-13 DSH 0.2.2-rc.2
+
+官方固定源码 `ddac96760b6edf8fa0fe17cbdcf0b512f4c12b2c` 通过冻结安装和 10 项构建门禁。配套 SDK 通过冻结安装、类型、129 项离线检查、构建、生产依赖审计和实际 tarball 校验。检查包含流式、取消和恢复、工具调用、会话隔离，以及合成官网 C/B 的原生 50% 门槛、checkpoint 与新 chat 承接。
+
+同一份 tarball 在固定 rc.2 与 rc.1 源码宿主通过 Web 配置组合、headless 原生提供方和模型挂载。探针确认 TokenFreeCompactionEngine、auto=true、retainTokens=0、compactionRetries=0，模型调用为零。真实账号自然达到 50%、Web UI 与 Desktop 不在本轮验收范围。
+
 2026-11-06 默认渠道更新：CLI latest 升至已验证的 0.2.2-rc.1，与 next 相同；默认 main 安装改为固定 rc.1，保留 rc.5 回退及六个宿主。只有文档变更，源码、测试、SDK、依赖、锁文件、引擎与 CI 不变；本地 129 项检查及原生宿主证据仍为 2026-11-05。本轮包、CI、完整 SHA 安装和产物一致性随 PR 保存，不新增真实账号或自然50%验收；npm 0.2.0 / v0.2.0 仍限原 rc.3，未新发布。见[兼容约定](COMPATIBILITY.md)。
 
 

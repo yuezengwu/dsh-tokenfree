@@ -1,8 +1,14 @@
 # DSH 兼容与验证边界
 
-核对日期：2026-11-06。npm 发布版 `dsh-tokenfree@0.2.0` 仍固定支持 DSH `0.2.1-rc.3`；它的发行提交、包及标签没有变化。下表新增支持仅属于当前 main，尚未发布新的 TokenFree 版本。
+核对日期：2026-11-13。npm 发布版 `dsh-tokenfree@0.2.0` 仍固定支持 DSH `0.2.1-rc.3`；它的发行提交、包及标签没有变化。下表新增支持仅属于当前 main，尚未发布新的 TokenFree 版本。
 
-## 当前渠道与默认安装（2026-11-06）
+## 当前渠道与默认安装（2026-11-13）
+
+[官方 rc.2](https://github.com/deepseek-ai/deepseek-harness/releases/tag/dsh-v0.2.2-rc.2) 固定源码 `ddac96760b6edf8fa0fe17cbdcf0b512f4c12b2c`。CLI npm latest 固定 rc.1，next 固定 rc.2，alpha 固定 alpha.3；store 的独立 latest 仍为 0.1.2-alpha.2，next 为 rc.2。新增 rc.2 并保留全部六个既有宿主。
+
+协调 rc.2 SDK 与 Cordis 4.1.0 / Loader 1.1.0，显式固定开发所需的间接 peer，防止锁文件混入旧版 SDK。rc.2 收窄 LlmError 构造器的错误码类型；适配器和 CLI 通过新版公开失败转换或旧宿主构造器保留原错误码。原生工具、压缩、计量和会话逻辑沿用既有实现。证据范围见[验证记录](VALIDATION.md)。
+
+### 历史渠道记录（2026-11-06）
 
 CLI npm `latest=next=0.2.2-rc.1`、`alpha=0.2.2-alpha.3`；store 独立 `latest=0.1.2-alpha.2`、`next=0.2.2-rc.1`、`alpha=0.2.2-alpha.3`。只有 CLI latest 从 rc.5 升至已验证的 rc.1，其余四十组已跟踪标签不变；别名与固定 rc.1 的 tarball/integrity 一致，官方 SHA 仍为 `66491b05e3f05ad35bcdd4f6cd7ed26041d9e3db`。
 
@@ -18,6 +24,7 @@ CLI npm `latest=next=0.2.2-rc.1`、`alpha=0.2.2-alpha.3`；store 独立 `latest=
 | 0.2.2-alpha.2 | `f3803c96974ad4a94195fb97e5c637e9c2a3afe3` | 协调 SDK 全量检查、同一包的隔离 web 配置与 headless 原生挂载；宿主要求 Node >=24.9 |
 | 0.2.2-alpha.3 | `05b1cae8db6e674c5685101494d4eec24652424a` | 协调 SDK、129 项检查、同一包隔离 web 组合与 headless 原生挂载；Node >=24.9 |
 | 0.2.2-rc.1 | `66491b05e3f05ad35bcdd4f6cd7ed26041d9e3db` | 协调 SDK、129 项检查、同一包隔离 web 组合与 headless 原生挂载；Node >=24.9 |
+| 0.2.2-rc.2 | `ddac96760b6edf8fa0fe17cbdcf0b512f4c12b2c` | 协调 SDK、129 项检查、同一包隔离 web 组合与 headless 原生挂载；Node >=24.9 |
 
 2026-10-30 三个发布 SDK profile 均完成干净安装、frozen install、构建、类型、129 项检查与实际包校验。开发依赖固定 alpha.2，重新解析锁文件避免混入旧 SDK；peer 与 engines 保留 rc.3 并显式追加 rc.4 / alpha.2。共享清单、CI 精确源码 SHA、引擎与开发依赖由兼容一致性门禁核对。
 
@@ -56,13 +63,20 @@ rc.5 只调整思考展示，TokenFree 不消费变更的 Slot；本轮无业务
 
 这不补充真实账号或自然 50% 压缩验收，不改变 npm 0.2.0 的 rc.3 支持范围。
 
-## main 安装（2026-11-06）
+## main 安装（2026-11-13）
 
 使用新增兼容需安装 Git main；旧 npm 0.2.0 仍按 README 搭配原 rc.3。默认固定 rc.1，需要 Node >=24.9：
 
 ```sh
 npx @deepseek-ai/dsh@0.2.2-rc.1 plugin --profile web add github:yuezengwu/dsh-tokenfree#main
 npx @deepseek-ai/dsh@0.2.2-rc.1 --profile web
+```
+
+npm next 固定 rc.2（Node >=24.9）：
+
+```sh
+npx @deepseek-ai/dsh@0.2.2-rc.2 plugin --profile web add github:yuezengwu/dsh-tokenfree#main
+npx @deepseek-ai/dsh@0.2.2-rc.2 --profile web
 ```
 
 保留先前默认版 rc.5 回退：

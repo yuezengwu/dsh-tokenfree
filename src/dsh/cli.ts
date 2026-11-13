@@ -9,6 +9,7 @@ import { resolveCredential, defaultCredentialFile, normalizeCredential } from '.
 import { DeepSeekWebClient } from '../deepseek-web/client.js'
 import { PROVIDER, MODEL, apply } from './index.js'
 import { TokenFreeError } from '../core/errors.js'
+import { providerLlmError } from './llm-error.js'
 import { TokenFreeAdapter } from './adapter.js'
 import { LocalAccount } from '../core/account.js'
 import { readFile } from 'node:fs/promises'
@@ -65,7 +66,7 @@ async function smoke(tools: boolean): Promise<void> {
       const blocks: ContentBlock[] = []
       for await (const chunk of ctx.llm.stream(options)) {
         if (chunk.type === 'block-end') blocks.push(chunk.block)
-        if (chunk.type === 'finish' && (chunk.reason.kind === 'error' || chunk.reason.kind === 'aborted')) throw new LlmError(chunk.reason.failure.message, chunk.reason.failure.code)
+        if (chunk.type === 'finish' && (chunk.reason.kind === 'error' || chunk.reason.kind === 'aborted')) throw providerLlmError(chunk.reason.failure)
       }
       return blocks
     }
