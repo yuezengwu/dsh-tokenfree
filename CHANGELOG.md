@@ -1,6 +1,8 @@
 # 变更记录
 
-## Unreleased — main 兼容更新（2026-11-13）
+## Unreleased — main 兼容更新（2026-11-14）
+
+- 新增 DSH 0.2.2-rc.3，保留七个旧宿主，开发 SDK 和间接 peer 同步锁定到 rc.3。默认安装固定 rc.1。
 
 - 新增 DSH 0.2.2-rc.2，协调开发 SDK 与间接 peer，保留六个旧宿主。适配原生 LlmError 错误码接口。默认安装固定 rc.1，npm 0.2.0 的宿主范围仍为原 rc.3。
 
