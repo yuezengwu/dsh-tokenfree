@@ -74,6 +74,8 @@ jobs:
             sha: ddac96760b6edf8fa0fe17cbdcf0b512f4c12b2c
           - version: 0.2.2-rc.3
             sha: 38a6a5c965aa99ab525161efb7cc5cf1fe62fced
+          - version: 0.2.2-rc.4
+            sha: 3f321d32bfe382212a8ed8785c1d47a5a300aa23
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86
