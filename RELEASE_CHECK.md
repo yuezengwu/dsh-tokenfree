@@ -1,5 +1,9 @@
 # 正式发布前检查
 
+## 2026-11-19 main 兼容更新
+
+矩阵追加 DSH 0.2.2-rc.5，保留九个旧源码宿主；验证范围见[验证记录](VALIDATION.md)。不新增 npm 或 GitHub tag/Release，不补充真实账号与自然 50% 验收。
+
 2026-11-18 main 矩阵新增 0.2.2-rc.4，见[验证记录](VALIDATION.md)。npm 0.2.0 与 GitHub v0.2.0 继续对应 DSH 0.2.1-rc.3 的发行包。
 
 2026-11-14 main 矩阵新增 0.2.2-rc.3，见[验证记录](VALIDATION.md)。npm 0.2.0 与 GitHub v0.2.0 继续对应原 rc.3 的发行包。
