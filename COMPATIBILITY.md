@@ -1,8 +1,14 @@
 # DSH 兼容与验证边界
 
-核对日期：2026-11-19。npm 发布版 `dsh-tokenfree@0.2.0` 仍固定支持 DSH `0.2.1-rc.3`；它的发行提交、包及标签没有变化。下表新增支持仅属于当前 main，尚未发布新的 TokenFree 版本。
+核对日期：2026-11-20。npm 发布版 `dsh-tokenfree@0.2.0` 仍固定支持 DSH `0.2.1-rc.3`；它的发行提交、包及标签没有变化。下表新增支持仅属于当前 main，尚未发布新的 TokenFree 版本。
 
-## 当前渠道与默认安装（2026-11-19）
+## 当前渠道与默认安装（2026-11-20）
+
+CLI npm `latest=next=0.2.2-rc.5`，`alpha=0.2.2-alpha.3`；latest / next 和精确 rc.5 的 tarball 与 integrity 一致。store 独立标签仍为 `latest=0.1.2-alpha.2`、`next=0.2.2-rc.5`、`alpha=0.2.2-alpha.3`。默认 Git 安装固定 rc.5，保留 rc.1 及全部既有宿主。
+
+本轮仅更新安装说明，源码、依赖、锁文件与十个固定源码宿主均不变。本地 129 项检查、同包原生挂载及合成 C/B 的验收保留 2026-11-19 日期；当前提交和合并后 CI、完整 SHA 安装及包核对随 PR 保存。npm 0.2.0 / GitHub v0.2.0 仍限原 DSH 0.2.1-rc.3；自然达到 50% 的真实账号自动压缩仍待验收。
+
+### 2026-11-19 rc.5 渠道与兼容证据
 
 [官方 0.2.2-rc.5](https://github.com/deepseek-ai/deepseek-harness/releases/tag/dsh-v0.2.2-rc.5) 固定源码 `9c2670d3bce5275e0d1610272958121af87787bb`。CLI 独立核对为 latest=0.2.2-rc.1、next=0.2.2-rc.5、alpha=0.2.2-alpha.3；store 自身为 latest=0.1.2-alpha.2、next=0.2.2-rc.5、alpha=0.2.2-alpha.3。开发 SDK 固定 rc.5，默认安装固定 rc.1。 保留九个旧宿主。搜索策略维持关闭，未接管或重新实现 DSH 工具执行与压缩事务。npm 0.2.0 的支持范围仍为 DSH 0.2.1-rc.3。
 
@@ -78,23 +84,23 @@ rc.5 只调整思考展示，TokenFree 不消费变更的 Slot；本轮无业务
 
 这不补充真实账号或自然 50% 压缩验收，不改变 npm 0.2.0 的 rc.3 支持范围。
 
-## main 安装（2026-11-19）
+## main 安装（2026-11-20）
 
-使用新增兼容需安装 Git main；旧 npm 0.2.0 仍按 README 搭配原 rc.3。默认固定 rc.1，需要 Node >=24.9：
-
-```sh
-npx @deepseek-ai/dsh@0.2.2-rc.1 plugin --profile web add github:yuezengwu/dsh-tokenfree#main
-npx @deepseek-ai/dsh@0.2.2-rc.1 --profile web
-```
-
-npm next 固定 0.2.2-rc.5（Node >=24.9）：
+使用新增兼容需安装 Git main；旧 npm 0.2.0 仍按 README 搭配原 rc.3。默认固定 0.2.2-rc.5，需要 Node >=24.9：
 
 ```sh
 npx @deepseek-ai/dsh@0.2.2-rc.5 plugin --profile web add github:yuezengwu/dsh-tokenfree#main
 npx @deepseek-ai/dsh@0.2.2-rc.5 --profile web
 ```
 
-保留先前默认版 rc.5 回退：
+npm next 同为 0.2.2-rc.5；先前默认版 0.2.2-rc.1 保留回退（Node >=24.9）：
+
+```sh
+npx @deepseek-ai/dsh@0.2.2-rc.1 plugin --profile web add github:yuezengwu/dsh-tokenfree#main
+npx @deepseek-ai/dsh@0.2.2-rc.1 --profile web
+```
+
+保留先前默认版 0.2.1-rc.5 回退：
 
 ```sh
 npx @deepseek-ai/dsh@0.2.1-rc.5 plugin --profile web add github:yuezengwu/dsh-tokenfree#main
