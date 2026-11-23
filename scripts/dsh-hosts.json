@@ -52,11 +52,6 @@
       "nativeToolExecutor": true
     },
     {
-      "version": "0.2.3-alpha.1",
-      "sha": "d98f5d68519215da48f3002da2cb9c9d2068d81d",
-      "nativeToolExecutor": true
-    },
-    {
       "version": "0.2.3-alpha.2",
       "sha": "4b399c39a6d1479cd84ca591b4d7c88e24d38a96",
       "nativeToolExecutor": true
