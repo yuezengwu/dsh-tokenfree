@@ -4,6 +4,8 @@
 
 每一步成功后才执行下一步；CLI 返回非零时停止并检查实际状态，不因后续命令成功掩盖前一步失败。
 
+当前 main 兼容记录见[兼容约定](COMPATIBILITY.md)。构建新版 alpha SDK 使用符合宿主要求的 Node；0.2.3-alpha.2 为 `^24.22.3 || >=26.13.1`。兼容代码合入、npm 发布与 GitHub Release 分别核验；本轮维护不创建版本或标签。
+
 ## 1. 准备版本
 
 从 main 修改 package.json 的版本、DSH engines 与对应 SDK，更新锁文件、README 安装说明和带日期的 CHANGELOG。0.x 新能力或不兼容状态变化升 minor，兼容修复升 patch；不重复使用已发布的版本。

@@ -1,5 +1,5 @@
 {
-  "developmentVersion": "0.2.2-rc.5",
+  "developmentVersion": "0.2.3-alpha.2",
   "hosts": [
     {
       "version": "0.2.1-rc.3",
@@ -49,6 +49,11 @@
     {
       "version": "0.2.2-rc.5",
       "sha": "9c2670d3bce5275e0d1610272958121af87787bb",
+      "nativeToolExecutor": true
+    },
+    {
+      "version": "0.2.3-alpha.2",
+      "sha": "4b399c39a6d1479cd84ca591b4d7c88e24d38a96",
       "nativeToolExecutor": true
     }
   ]

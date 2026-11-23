@@ -1,12 +1,22 @@
 # DSH 兼容与验证边界
 
-核对日期：2026-11-20。npm 发布版 `dsh-tokenfree@0.2.0` 仍固定支持 DSH `0.2.1-rc.3`；它的发行提交、包及标签没有变化。下表新增支持仅属于当前 main，尚未发布新的 TokenFree 版本。
+核对日期：2026-11-23。npm 发布版 `dsh-tokenfree@0.2.0` 及 GitHub v0.2.0 仍仅支持原 DSH `0.2.1-rc.3`。新增兼容属于 Git main，未发布新版本或标签。
 
-## 当前渠道与默认安装（2026-11-20）
+## 当前渠道与兼容验证（2026-11-23）
 
-CLI npm `latest=next=0.2.2-rc.5`，`alpha=0.2.2-alpha.3`；latest / next 和精确 rc.5 的 tarball 与 integrity 一致。store 独立标签仍为 `latest=0.1.2-alpha.2`、`next=0.2.2-rc.5`、`alpha=0.2.2-alpha.3`。默认 Git 安装固定 rc.5，保留 rc.1 及全部既有宿主。
+CLI npm `latest=next=0.2.2-rc.5`、`alpha=0.2.3-alpha.2`；store 独立为 `latest=0.1.2-alpha.2`、`next=0.2.2-rc.5`、`alpha=0.2.3-alpha.2`。默认 Git 安装继续固定 rc.5；新增 alpha.2，保留全部十个旧宿主与精确 SHA。
 
-本轮仅更新安装说明，源码、依赖、锁文件与十个固定源码宿主均不变。本地 129 项检查、同包原生挂载及合成 C/B 的验收保留 2026-11-19 日期；当前提交和合并后 CI、完整 SHA 安装及包核对随 PR 保存。npm 0.2.0 / GitHub v0.2.0 仍限原 DSH 0.2.1-rc.3；自然达到 50% 的真实账号自动压缩仍待验收。
+开发 SDK 固定 0.2.3-alpha.2，协调 Cordis 4.2.0-alpha.1、Loader / Group / Include 1.2.0-alpha.1，补齐已支持 rc 宿主使用的 Cordis 4.1.0 peer。alpha.2 官方要求 `^24.22.3 || >=26.13.1`，本轮在隔离 Node 24.22.3 下验证，未切换个人运行时。
+
+冻结安装、类型、129 项离线检查、构建、生产依赖审计与实际 tarball 检查通过。alpha.2 精确源码 frozen install、完整 build 10/10 门禁通过，同包 Web 配置组合 / headless 原生挂载通过。另在实际 npm alpha.2 CLI 验证同包原生挂载，确认提供方、web-default、TokenFreeCompactionEngine、auto=true、retainTokens=0 / compactionRetries=0、零模型调用。流式、取消/恢复、工具、会话隔离和合成 C/B 压缩/checkpoint 沿用原离线组合，生产源码和测试不变。
+
+当前提交 / main 的 14 项完整 CI、完整 SHA 安装和产物核对随 PR 保存。npm 0.2.0 / GitHub v0.2.0 仍限原 DSH 0.2.1-rc.3，未新发布。隔离原生挂载不等于 Chrome 登录、真实模型或自然达到 50% 的真实账号压缩，这些范围仍待验收。旧证据保留原日期。
+
+### 未纳入支持：0.2.3-alpha.1
+
+官方源码固定 `d98f5d68519215da48f3002da2cb9c9d2068d81d`。原始发布 SDK 搭配所声明的 Cordis 4.1.0 / Loader 1.1.0 时，typert-protocol 访问未导出的 Context.root，离线检查失败；实际 npm CLI 更在加载 app-boot 时因 Loader 未导出 EntryValidationError 而无法执行插件命令。
+
+原候选包在精确源码上的隔离原生挂载通过，但该源码包含不同于 npm 同版本 vendor 的实现，不替代发行包验收。alpha.1 已从最终引擎、peer、宿主清单和 CI 排除；保留该失败和源码探测作为问题排查记录。alpha.2 的协调 vendor 与实际 npm 原生挂载通过。
 
 ### 2026-11-19 rc.5 渠道与兼容证据
 
@@ -46,6 +56,7 @@ CLI npm `latest=next=0.2.2-rc.1`、`alpha=0.2.2-alpha.3`；store 独立 `latest=
 | 0.2.2-rc.3 | `38a6a5c965aa99ab525161efb7cc5cf1fe62fced` | 协调 SDK、129 项检查、同一包隔离 web 组合与 headless 原生挂载；Node >=24.9 |
 | 0.2.2-rc.4 | `3f321d32bfe382212a8ed8785c1d47a5a300aa23` | 协调 SDK、129 项检查、同一包隔离 web 组合与 headless 原生挂载；Node >=24.9 |
 | 0.2.2-rc.5 | `9c2670d3bce5275e0d1610272958121af87787bb` | 协调 SDK、129 项检查、同一包隔离 web 组合与 headless 原生挂载；Node >=24.9 |
+| 0.2.3-alpha.2 | `4b399c39a6d1479cd84ca591b4d7c88e24d38a96` | 协调发布 SDK、129 项检查、同包隔离 Web 组合 / headless 原生挂载；Node ^24.22.3 或 >=26.13.1 |
 
 2026-10-30 三个发布 SDK profile 均完成干净安装、frozen install、构建、类型、129 项检查与实际包校验。开发依赖固定 alpha.2，重新解析锁文件避免混入旧 SDK；peer 与 engines 保留 rc.3 并显式追加 rc.4 / alpha.2。共享清单、CI 精确源码 SHA、引擎与开发依赖由兼容一致性门禁核对。
 
@@ -84,7 +95,7 @@ rc.5 只调整思考展示，TokenFree 不消费变更的 Slot；本轮无业务
 
 这不补充真实账号或自然 50% 压缩验收，不改变 npm 0.2.0 的 rc.3 支持范围。
 
-## main 安装（2026-11-20）
+## main 安装（2026-11-23）
 
 使用新增兼容需安装 Git main；旧 npm 0.2.0 仍按 README 搭配原 rc.3。默认固定 0.2.2-rc.5，需要 Node >=24.9：
 
@@ -112,6 +123,13 @@ alpha.3 同样固定 CLI 版本并满足 Node >=24.9；alpha.2 保留支持：
 ```sh
 npx @deepseek-ai/dsh@0.2.2-alpha.3 plugin --profile web add github:yuezengwu/dsh-tokenfree#main
 npx @deepseek-ai/dsh@0.2.2-alpha.3 --profile web
+```
+
+当前 alpha 固定 0.2.3-alpha.2，需 Node 24.22.3+（24.x）或 26.13.1+；全部既有旧 alpha 保留支持；0.2.3-alpha.1 未纳入支持：
+
+```sh
+npx @deepseek-ai/dsh@0.2.3-alpha.2 plugin --profile web add github:yuezengwu/dsh-tokenfree#main
+npx @deepseek-ai/dsh@0.2.3-alpha.2 --profile web
 ```
 
 Git 依赖通过 prepare 构建；无新 npm 发布或 tag。审计安装使用 PR 中提供的完整不可变提交 SHA，避免 main 后续移动。

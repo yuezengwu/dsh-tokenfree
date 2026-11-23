@@ -1,5 +1,7 @@
 # 验证状态
 
+2026-11-23：main 新增 DSH 0.2.3-alpha.2，保留全部十个旧宿主。协调发布 SDK、129 项离线检查及同包固定源码原生挂载的证据见[兼容约定](COMPATIBILITY.md)；alpha.1 的原始 SDK 与 CLI 存在 vendor 导出不匹配，未纳入支持；Node 要求分别记录。npm 0.2.0 / GitHub v0.2.0 仍限原 rc.3，未新发布；真实账号自然达到 50% 的压缩仍待验收。
+
 ## 2026-11-19 DSH 0.2.2-rc.5
 
 官方源码 `9c2670d3bce5275e0d1610272958121af87787bb`。冻结安装、类型、129 项离线检查、构建、生产依赖审计及实际 tarball 检查；同一 tarball 在固定 rc.5 源码确认 Web 配置组合与 headless 提供方、模型、TokenFreeCompactionEngine、auto=true 及原生策略挂载。流式、取消/恢复、工具、会话隔离与合成 C/B 压缩/checkpoint 由现有离线组合覆盖；搜索仍关闭。

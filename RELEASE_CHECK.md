@@ -1,5 +1,7 @@
 # 正式发布前检查
 
+2026-11-23：main 新增 DSH 0.2.3-alpha.2，保留全部十个旧宿主。协调发布 SDK、129 项离线检查及同包固定源码原生挂载的证据见[兼容约定](COMPATIBILITY.md)；alpha.1 的原始 SDK 与 CLI 存在 vendor 导出不匹配，未纳入支持；Node 要求分别记录。npm 0.2.0 / GitHub v0.2.0 仍限原 rc.3，未新发布；真实账号自然达到 50% 的压缩仍待验收。
+
 ## 2026-11-19 main 兼容更新
 
 矩阵追加 DSH 0.2.2-rc.5，保留九个旧源码宿主；验证范围见[验证记录](VALIDATION.md)。不新增 npm 或 GitHub tag/Release，不补充真实账号与自然 50% 验收。
